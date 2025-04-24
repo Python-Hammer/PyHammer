@@ -1,5 +1,5 @@
 import numpy as np
-from rules.utils import Test, ClipSave, D
+from rules.utils import roll_test, bound_save_target_value, D
 
 
 def basic_attack(weapon_profile, save, samples):
@@ -10,17 +10,15 @@ def basic_attack(weapon_profile, save, samples):
     dmg = 0
     for _ in range(weapon_profile["Atk"]):
 
-        hits, Crit = Test(weapon_profile["Hit"], 6, samples, return_crits=True)
-        wounds = Test(weapon_profile["Wound"], 6, samples)
+        hits, Crit = roll_test(weapon_profile["Hit"], 6, samples, return_crits=True)
+        wounds = roll_test(weapon_profile["Wound"], 6, samples)
 
         if weapon_profile["Crit"] == "Auto-wound":
             wounds = np.logical_or(wounds, Crit)
 
         effective_save = save + weapon_profile["Rnd"]
-        effective_save = ClipSave(x=effective_save, x_old=save)
-
-        pass_save = np.logical_not(Test(effective_save, 6, samples))
-
+        effective_save = bound_save_target_value(x=effective_save, x_old=save)
+        pass_save = np.logical_not(roll_test(effective_save, 6, samples))
         scored = hits * wounds * pass_save
 
         if weapon_profile["Crit"] == "Mortal":
@@ -29,9 +27,8 @@ def basic_attack(weapon_profile, save, samples):
         dmg += weapon_profile["Dmg"] * scored
 
         if weapon_profile["Crit"] == "2 Hits":
-
-            wounds2 = Test(weapon_profile["Wound"], 6, samples)
-            pass_save2 = np.logical_not(Test(effective_save, 6, samples))
+            wounds2 = roll_test(weapon_profile["Wound"], 6, samples)
+            pass_save2 = np.logical_not(roll_test(effective_save, 6, samples))
             scored2 = Crit * wounds2 * pass_save2
             dmg += weapon_profile["Dmg"] * scored2
 
@@ -55,8 +52,8 @@ def complex_attack(weapon_profile, samples):
 
     # This loop could be parallelized
     for _ in range(int(weapon_profile["Atk"])):
-        hits, Crit = Test(weapon_profile["Hit"], 6, samples, return_crits=True)
-        wounds = Test(weapon_profile["Wound"], 6, samples)
+        hits, Crit = roll_test(weapon_profile["Hit"], 6, samples, return_crits=True)
+        wounds = roll_test(weapon_profile["Wound"], 6, samples)
 
         if weapon_profile["Crit"] == "Auto-wound":
             wounds = np.logical_or(wounds, Crit)
@@ -72,7 +69,7 @@ def complex_attack(weapon_profile, samples):
         rend.append(np.ones(samples) * weapon_profile["Rnd"])
 
         if weapon_profile["Crit"] == "2 Hits":
-            wounds2 = Test(weapon_profile["Wound"], 6, samples)
+            wounds2 = roll_test(weapon_profile["Wound"], 6, samples)
             scored.append(Crit * wounds2)
             dmg.append(np.ones(samples) * weapon_profile["Dmg"])
             rend.append(np.ones(samples) * weapon_profile["Rnd"])
@@ -153,7 +150,7 @@ class Profile:
 
     def defend(self, scored, dmg, rend, mortal_dmg):
         effective_save = self.save + rend
-        effective_save = ClipSave(x=effective_save, x_old=self.save)
+        effective_save = bound_save_target_value(x=effective_save, x_old=self.save)
 
         save_roll = D(6, samples=scored.shape)
         pass_save = save_roll < effective_save
@@ -204,7 +201,7 @@ class Profile:
             ward = self.ward
 
         effective_save = save + rend
-        effective_save = ClipSave(x=effective_save, x_old=save)
+        effective_save = bound_save_target_value(x=effective_save, x_old=save)
 
         modifier = health / min((effective_save - 1) / 6, 1)
         modifier = modifier / min((ward - 1) / 6, 1)
