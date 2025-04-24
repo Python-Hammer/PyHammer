@@ -5,10 +5,19 @@
 Simulates a number of fights for a list of units then displays graphs with the results
 
 ### Quickstart
+Setup your virtual environment:
+```shell
+python -m venv .venv
+```
+
+then activate it:
+```shell
+source .venv/bin/activate
+```
 
 install the necessary packages 📦
 ```shell
-pip install numpy pandas matplotlib seaborn
+pip install -r requirements.txt
 ```
 
 run 🚀
