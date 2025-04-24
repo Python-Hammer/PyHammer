@@ -6,42 +6,35 @@ from numpy.random import randint
 import numpy as np
 
 
-def plot_multi_bars(dic_of_dic, alpha = 0.5):
+def plot_multi_bars(dic_of_dic, alpha=0.5):
     # dic_of_dic[metric_name][unit_name]
-    
-    fig,ax = plt.subplots()
-
+    fig, ax = plt.subplots()
     legend_boxes = []
-    
-    for i,metric in enumerate(dic_of_dic):
-        
+    for i, metric in enumerate(dic_of_dic):
         dic = dic_of_dic[metric]
         n_units = len(dic)
-        
-        for j,unit in enumerate(dic):
-        
-            position = i + 0.8*j/n_units + 0.2
-            width = 0.8/n_units 
+
+        for j, unit in enumerate(dic):
+            position = i + 0.8 * j / n_units + 0.2
+            width = 0.8 / n_units
             value = dic[unit]
-            color = 'C'+str(j)
-            
-            ax.add_patch(Rectangle((position - width/2, 0), width, value, color=color, alpha=alpha))
+            color = "C" + str(j)
+
+            ax.add_patch(Rectangle((position - width / 2, 0), width, value, color=color, alpha=alpha))
 
             if i == 0:
                 color_box = mpatches.Patch(color=color, label=unit, alpha=alpha)
                 legend_boxes.append(color_box)
-        
-    ax.set_xticks(ticks = [i + 0.5 for i in range(len(dic_of_dic))], labels = [metric for metric in dic_of_dic])
-            
-    plt.legend(handles=legend_boxes, loc='upper center', frameon=True)
+
+    ax.set_xticks(ticks=[i + 0.5 for i in range(len(dic_of_dic))], labels=[metric for metric in dic_of_dic])
+
+    plt.legend(handles=legend_boxes, loc="upper center", frameon=True)
     plt.xlim(0, len(dic_of_dic))
-    plt.ylim(0, 1.2*max([max(dic_of_dic[metric].values()) for metric in dic_of_dic]))
+    plt.ylim(0, 1.2 * max([max(dic_of_dic[metric].values()) for metric in dic_of_dic]))
     plt.show()
-    
 
 
-
-'''
+"""
 for s in save:
     dmg_sample = randint(1, 7, 1000)
     
@@ -64,4 +57,4 @@ legend_boxes.append(color_box)
         
 plt.legend(handles=legend_boxes, loc='upper right', frameon=True)
 
-'''
+"""

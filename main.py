@@ -1,7 +1,8 @@
 from rules.unit_profiles import *
-from metrics.unit_metric import multimetric_plot,ranking,DPS
+from metrics.unit_metric import multimetric_plot, ranking, DPS
 from metrics.pairwise_metric import matrix, winrate
 import numpy as np
+
 np.set_printoptions(precision=2, suppress=True)
 
 
@@ -12,19 +13,19 @@ def main():
 
     ################ Tournament ################
 
-    metric = winrate(samples=10000, initiative = 1)
+    metric = winrate(samples=10000, initiative=1)
 
     matrix(units, metric)
 
     ################ Plot different metrics ################
 
-    metrics = [DPS(save = s, samples=10000, scale_by_cost=True) for s in [2,3,4,5]]
+    metrics = [DPS(save=s, samples=10000, scale_by_cost=True) for s in [2, 3, 4, 5]]
 
     multimetric_plot(units, metrics)
 
     ################ Ranking according to a metric ################
 
-    metric = DPS(save = 3, samples=10000)
+    metric = DPS(save=3, samples=10000)
 
     print(ranking(units, metric))
 
@@ -32,7 +33,7 @@ def main():
 if __name__ == "__main__":
     main()
 
-'''
+"""
 import numpy as np
 from rules.unit_profiles import *
 np.set_printoptions(precision=2, suppress=True)
@@ -78,4 +79,4 @@ for unit in units:
 sorted_dps_list, sorted_name_list = zip(*sorted(zip(dps_list, name_list), reverse=True))
 
 print(sorted_name_list)
-'''
+"""
