@@ -1,5 +1,5 @@
 import numpy as np
-from rules.utils import roll_test, bound_save_target_value, D
+from rules.utils import roll_test, bound_save_target_value, roll_dice
 
 
 def basic_attack(weapon_profile, save, samples):
@@ -152,17 +152,17 @@ class Profile:
         effective_save = self.save + rend
         effective_save = bound_save_target_value(x=effective_save, x_old=self.save)
 
-        save_roll = D(6, samples=scored.shape)
+        save_roll = roll_dice(6, samples=scored.shape)
         pass_save = save_roll < effective_save
 
         dmg = dmg * scored * pass_save
 
         if not (self.ward is None):
-            ward_roll = D(6, samples=scored.shape)
+            ward_roll = roll_dice(6, samples=scored.shape)
             pass_ward = ward_roll < self.ward
             dmg = dmg * pass_ward
 
-            ward_roll = D(6, samples=mortal_dmg.shape)
+            ward_roll = roll_dice(6, samples=mortal_dmg.shape)
             pass_ward = ward_roll < self.ward
             mortal_dmg = mortal_dmg * pass_ward
 
@@ -173,17 +173,17 @@ class Profile:
     def defend_immortal_save(self, scored, dmg, mortal_dmg):
         effective_save = self.save
 
-        save_roll = D(6, samples=scored.shape)
+        save_roll = roll_dice(6, samples=scored.shape)
         pass_save = save_roll < effective_save
 
         dmg = dmg * scored * pass_save
 
         if not (self.ward is None):
-            ward_roll = D(6, samples=scored.shape)
+            ward_roll = roll_dice(6, samples=scored.shape)
             pass_ward = ward_roll < self.ward
             dmg = dmg * pass_ward
 
-            ward_roll = D(6, samples=mortal_dmg.shape)
+            ward_roll = roll_dice(6, samples=mortal_dmg.shape)
             pass_ward = ward_roll < self.ward
             mortal_dmg = mortal_dmg * pass_ward
 
