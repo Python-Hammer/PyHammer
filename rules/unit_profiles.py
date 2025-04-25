@@ -1,5 +1,5 @@
 from .combat_rules import *
-from .utils import miniD3
+from .utils import roll_d3_above_2
 
 
 class ChaosKnights_Charge(Profile):
@@ -200,14 +200,14 @@ class Karkadrak_Charge(Profile):
     def attack_save(self, save, samples):
         dmg = super(Karkadrak_Charge, self).attack_save(save, samples)
         # add dmg from charge
-        dmg += miniD3(samples)
+        dmg += roll_d3_above_2(samples)
 
         return dmg
 
     def attack(self, samples):
         scored_all, dmg_all, rend_all, mortal_dmg_all = super(Karkadrak_Charge, self).attack(samples)
         # add dmg from charge
-        mortal_dmg_all += miniD3(samples)
+        mortal_dmg_all += roll_d3_above_2(samples)
 
         return scored_all, dmg_all, rend_all, mortal_dmg_all
 
@@ -288,14 +288,14 @@ class ChaosChariot(Profile):
     def attack_save(self, save, samples):
         dmg = super(ChaosChariot, self).attack_save(save, samples)
         # add dmg from charge
-        dmg += miniD3(samples)
+        dmg += roll_d3_above_2(samples)
 
         return dmg
 
     def attack(self, samples):
         scored_all, dmg_all, rend_all, mortal_dmg_all = super(ChaosChariot, self).attack(samples)
         # add dmg from charge
-        mortal_dmg_all += miniD3(samples)
+        mortal_dmg_all += roll_d3_above_2(samples)
 
         return scored_all, dmg_all, rend_all, mortal_dmg_all
 
@@ -387,14 +387,14 @@ class Slautherbrute(Profile):
     def attack_save(self, save, samples):
         dmg = super(Slautherbrute, self).attack_save(save, samples)
         # add dmg from charge
-        dmg += 2 * miniD3(samples)
+        dmg += 2 * roll_d3_above_2(samples)
 
         return dmg
 
     def attack(self, samples):
         scored_all, dmg_all, rend_all, mortal_dmg_all = super(Slautherbrute, self).attack(samples)
         # add dmg from charge
-        mortal_dmg_all += 2 * miniD3(samples)
+        mortal_dmg_all += 2 * roll_d3_above_2(samples)
 
         return scored_all, dmg_all, rend_all, mortal_dmg_all
 
