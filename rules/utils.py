@@ -22,7 +22,7 @@ def bound_target_value(x: int) -> int:
     Binds the target value of a d6 roll between 2 and 7.
     1+ tests do not exist, and 7+ tests are always a fail.
     """
-    return max(2, min(x, 7))
+    return np.maximum(2, np.minimum(x, 7))
 
 
 def bound_save_target_value(x: int, x_old: int) -> int:
