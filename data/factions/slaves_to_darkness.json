@@ -7,6 +7,7 @@
         "unit_type": "cavalry",
         "health": 4,
         "save": 3,
+        "has_champion": true,
         
         "weapons": [
             {
@@ -18,7 +19,8 @@
                 "rend": 1,
                 "special_rules":
                     [
-                        {"id": "add_damage", "condition": "charged", "value": 1}
+                        {"id": "add_damage", "condition": "charged", "value": 1},
+                        {"id": "add_rend", "condition": "charged", "value": 1}
                     ] 
             },
             {
