@@ -14,13 +14,15 @@ def roll_test(value: int, samples: int) -> npt.ArrayLike:
     return roll_dice(n_sides=6, samples=samples) >= value
 
 
-def roll_test_with_crit(value: int, samples: int) -> tuple[npt.ArrayLike, npt.ArrayLike]:
+def roll_test_with_crit(
+    value: int, samples: int, crit_threshold: int = 6
+) -> tuple[npt.ArrayLike, npt.ArrayLike]:
     """
     Rolls samples times a d6 and returns True if the roll is greater than or equal to value.
-    If the roll is 6, it also returns True for crits.
+    If the roll is above crit_threshold (e.g. Power of Hysh), it returns True.
     """
     rolls = roll_dice(n_sides=6, samples=samples)
-    return rolls >= value, rolls == 6
+    return rolls >= value, rolls >= crit_threshold
 
 
 def bound_target_value(x: int) -> int:
