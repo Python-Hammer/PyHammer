@@ -4,13 +4,15 @@ from models.weapon import Weapon
 class Profile:
     def __init__(self, unit_data: dict, is_reinforced: bool = False):
         self.name = unit_data["name"]
-        self.cost = unit_data["point_cost"]
+        self.cost = unit_data["point_cost"] if not is_reinforced else unit_data["point_cost"] * 2
         self.total_models = unit_data["model_count"] if not is_reinforced else 2 * unit_data["model_count"]
         self.current_models = unit_data["model_count"] if not is_reinforced else 2 * unit_data["model_count"]
         self.health = unit_data["health"]
         self.save = unit_data["save"]
         self.ward = unit_data.get("ward", None)
         self.champion = unit_data.get("has_champion", True)
+        self.wounds_taken = 0
+        self.is_destroyed = False
 
         # Initialize weapons
         self.weapons: list[Weapon] = []
@@ -28,3 +30,14 @@ class Profile:
             results = weapon.resolve_attacks(nb_attacks, enemy_save, combat_context)
             all_results.append(results)
         return sum(all_results)
+
+    def receive_damage(self, damage: int):
+        """Reduce the unit's health by the damage taken."""
+        previous_models = self.current_models
+        self.wounds_taken += damage
+        models_slain, wounds_taken = divmod(self.wounds_taken, self.health)
+        self.wounds_taken = wounds_taken
+        self.current_models = max(0, self.total_models - models_slain)
+        if self.current_models <= 0:
+            self.is_destroyed = True
+        return previous_models - self.current_models

@@ -2,8 +2,7 @@ from typing import Union
 
 import numpy as np
 
-from rules.utils import roll_dice
-from utils.utils import parse_roll_expression
+from rules.utils import roll_dice, parse_roll_expression
 
 
 class Damage:
