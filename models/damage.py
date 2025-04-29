@@ -6,6 +6,12 @@ from rules.utils import roll_dice, parse_roll_expression
 
 
 class Damage:
+    """
+    Class representing the damage of a weapon.
+    It can be either a fixed value or a variable value based on a roll expression.
+    Accepted roll expressions are of the form "XdY+Z".
+    """
+
     def __init__(self, damage_profile: Union[int, str]):
         if isinstance(damage_profile, int):
             self.damage_type = "fixed"
