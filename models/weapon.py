@@ -48,7 +48,7 @@ class Weapon:
         """
         Process the hit rolls based on the weapon's special rules.
         """
-        attacks = max(attacks + self._find_modifier_total_value("attacks", combat_context), 1)
+        attacks = max(attacks, 1)
         results = {"hits": 0, "wounds": 0, "mortals": 0}
         crit_auto_wound = any(rule["id"] == "auto_wound" for rule in self.special_rules)
         crit_mortal = any(rule["id"] == "crit_mortal" for rule in self.special_rules)
