@@ -24,7 +24,8 @@ class Profile:
         """Perform attacks with all weapons and return the resulting damage."""
         all_results = []
         for weapon in self.weapons:
-            nb_attacks = weapon.attacks * self.current_models
+            nb_attacks_per_model = weapon.attacks + weapon._find_modifier_total_value(value_name='attacks',combat_context=combat_context)
+            nb_attacks =  nb_attacks_per_model * self.current_models
             if self.champion and "companion" not in [rule["id"] for rule in weapon.special_rules]:
                 nb_attacks += 1
             results = weapon.resolve_attacks(nb_attacks, enemy_save, combat_context)
