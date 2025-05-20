@@ -20,7 +20,7 @@ class Profile:
             weapon = Weapon(weapon_data)
             self.weapons.append(weapon)
 
-    def attack_with_all_weapons(self, combat_context: dict, enemy_save: int) -> int:
+    def attack_with_all_weapons(self, combat_context: dict, enemy_save: int, verbose: bool = False) -> int:
         """Perform attacks with all weapons and return the resulting damage."""
         all_results = []
         for weapon in self.weapons:
@@ -28,7 +28,7 @@ class Profile:
             nb_attacks =  nb_attacks_per_model * self.current_models
             if self.champion and "companion" not in [rule["id"] for rule in weapon.special_rules]:
                 nb_attacks += 1
-            results = weapon.resolve_attacks(nb_attacks, enemy_save, combat_context)
+            results = weapon.resolve_attacks(nb_attacks, enemy_save, combat_context, verbose=verbose)
             all_results.append(results)
         return sum(all_results)
 

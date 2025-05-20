@@ -115,7 +115,7 @@ class Weapon:
         results["final_damage"] -= roll_test(enemy_ward, total_damage).sum()
         return results
 
-    def resolve_attacks(self, attack_count: int, enemy_save: int, combat_context: list = None):
+    def resolve_attacks(self, attack_count: int, enemy_save: int, combat_context: list = None, verbose: bool = False):
         """
         Attacks with the weapon against a target with a given save.
         The combat_context can include additional information like rerolls, modifiers, etc.
@@ -125,12 +125,24 @@ class Weapon:
             combat_context = []
 
         hit_rolls = self._process_hit_rolls(attack_count, combat_context)
+        if verbose:
+            print('hit_rolls', hit_rolls)
         wound_rolls = self._process_wound_rolls(hit_rolls["hits"], combat_context)
+        if verbose:
+            print('wound_rolls', wound_rolls)
         save_rolls = self._process_save_rolls(wound_rolls["wounds"], enemy_save, combat_context)
+        if verbose:
+            print('save_rolls', save_rolls)
         damage_mod = self._find_modifier_total_value("damage", combat_context)
+        if verbose:
+            print('damage_mod', damage_mod)
+        # Calculate total damage
         total_damage = self.damage.damage_value(
             samples=save_rolls["successful_attacks"] + hit_rolls["mortals"], add_modifier=damage_mod
         )
+        if verbose:
+            print('total_damage', total_damage)
         total_damage = self._process_ward_rolls(total_damage, combat_context)["final_damage"]
-
+        if verbose:
+            print('total_damage after ward', total_damage)
         return total_damage
