@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-
+from models.profile import Profile
 
 def load_faction(faction_name: str) -> dict:
     """Load a faction's units from its JSON file"""
@@ -21,3 +21,8 @@ def get_all_units() -> dict:
                 units_by_id[unit_data["id"]] = unit_data
 
     return units_by_id
+
+def get_all_profiles() -> dict:
+    all_units_data = get_all_units()
+    all_units = {unit_data["id"]: Profile(unit_data) for unit_data in all_units_data.values()}
+    return all_units
