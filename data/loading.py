@@ -22,7 +22,7 @@ def get_all_units() -> dict:
 
     return units_by_id
 
-def get_all_profiles() -> dict:
+def get_all_profiles(is_reinforced=False) -> dict:
     all_units_data = get_all_units()
-    all_units = {unit_data["id"]: Profile(unit_data) for unit_data in all_units_data.values()}
+    all_units = {unit_data["id"]: Profile(unit_data,is_reinforced=is_reinforced) for unit_data in all_units_data.values()}
     return all_units

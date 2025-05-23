@@ -86,6 +86,71 @@
                     "to_wound": 3
                 }
             ]
+        },
+        {
+            "has_champion": false,
+            "health": 8,
+            "id": "Chaos_Lord_on_Daemonic_Mount",
+            "model_count": 1,
+            "name": "Chaos Lord on Daemonic Mount",
+            "point_cost": 150,
+            "save": 3,
+            "unit_type": "cavalry",
+            "weapons": [
+                {
+                    "attacks": 3,
+                    "damage": 1,
+                    "name": "Daemonic Mount’s Mighty Hooves",
+                    "rend": 0,
+                    "special_rules": [
+                        {
+                            "id": "companion"
+                        }
+                    ],
+                    "to_hit": 5,
+                    "to_wound": 3
+                },
+                {
+                    "attacks": 7,
+                    "damage": 3,
+                    "name": "Cursed Weapons",
+                    "rend": 2,
+                    "to_hit": 3,
+                    "to_wound": 3
+                }
+            ]
+        },
+        {
+            "has_champion": true,
+            "health": 4,
+            "id": "chaos_knights_charge",
+            "model_count": 5,
+            "name": "Chaos Knights (Charge)",
+            "point_cost": 250,
+            "save": 3,
+            "unit_type": "cavalry",
+            "weapons": [
+                {
+                    "attacks": 3,
+                    "damage": 2,
+                    "name": "Cursed Lance",
+                    "rend": 2,
+                    "to_hit": 3,
+                    "to_wound": 3
+                },
+                {
+                    "attacks": 2,
+                    "damage": 1,
+                    "name": "Warsteed's Hooves",
+                    "special_rules": [
+                        {
+                            "id": "companion"
+                        }
+                    ],
+                    "to_hit": 5,
+                    "to_wound": 3
+                }
+            ]
         }
     ]
 }

@@ -20,6 +20,12 @@ class Profile:
             weapon = Weapon(weapon_data)
             self.weapons.append(weapon)
 
+    def reset(self):
+        """Reset the unit's state for a new simulation."""
+        self.current_models = self.total_models
+        self.wounds_taken = 0
+        self.is_destroyed = False
+
     def attack_with_all_weapons(self, combat_context: dict, enemy_save: int, verbose: bool = False) -> int:
         """Perform attacks with all weapons and return the resulting damage."""
         all_results = []
@@ -36,8 +42,7 @@ class Profile:
         """Reduce the unit's health by the damage taken."""
         previous_models = self.current_models
         self.wounds_taken += damage
-        models_slain, wounds_taken = divmod(self.wounds_taken, self.health)
-        self.wounds_taken = wounds_taken
+        models_slain, wounds_taken_model = divmod(self.wounds_taken, self.health)
         self.current_models = max(0, self.total_models - models_slain)
         if self.current_models <= 0:
             self.is_destroyed = True

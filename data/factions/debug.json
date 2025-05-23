@@ -30,7 +30,7 @@
             "point_cost": 1,
             "model_count": 10,
             "unit_type": "infantry",
-            "health": 2,
+            "health": 1,
             "save": 7,
             "has_champion": false
         }
