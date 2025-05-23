@@ -1,34 +1,47 @@
 from rules.unit_profiles import *
-from metrics.unit_metric import multimetric_plot, ranking, DPS
-from metrics.pairwise_metric import matrix, winrate
+from metrics.unit_metric import *
+from metrics.pairwise_metric import *
 import numpy as np
+from data.loading import get_all_profiles
 
 np.set_printoptions(precision=2, suppress=True)
 
 
 def main():
+    ################ Load all units ################
+
+    all_units = get_all_profiles(is_reinforced=False)
+
     ################ Define Units to study ################
 
-    units = [Eltharion(), Avalenor(), Belakor(), Abraxia_All()]
+    units = [all_units["chaos_knights_charge"], all_units["Chaos_Lord_on_Daemonic_Mount"]]
 
+    ################ Print a metric ################
+
+    metric = BetaStrike(ennemy_unit=all_units["chaos_knights"], scale_by_cost=False)
+    #metric = DPS(save=3, scale_by_cost=True)
+    multi_unit_plot_cdf(units, metric, n_samples=100000)
+
+    """
+    ################ Plot different metrics ################
+     
+    metrics = [DPS(save=s, samples=100, scale_by_cost=True) for s in [2, 3, 4, 5]]
+   
+    multimetric_plot(units, metrics)
+    
     ################ Tournament ################
 
     metric = winrate(samples=100, initiative=1)
 
     matrix(units, metric)
 
-    ################ Plot different metrics ################
-
-    metrics = [DPS(save=s, samples=100, scale_by_cost=True) for s in [2, 3, 4, 5]]
-
-    multimetric_plot(units, metrics)
 
     ################ Ranking according to a metric ################
 
     metric = DPS(save=3, samples=100)
 
     print(ranking(units, metric))
-
+    """
 
 if __name__ == "__main__":
     main()
