@@ -34,7 +34,8 @@ To add a unit to the simulation, insert it in the 'units' array in the **main.py
 ### Special Weapon Rules (supported)
 
 - `"id": "companion"`: Flag the weapon as "companion"
-- `"id": "auto_wound"`: Flag the weapon as "Auto Wound"
+- `"id": "crit_auto_wound"`: Flag the weapon as "Crit Auto Wound"
 - `"id": "crit_mortal"`: Flag the weapon as "Crit Mortal"
 - `"id": "crit_2_hits"`: Flag the weapon as "Crit 2 Hits"
+- `"id": "crit_5+"`: Flag the weapon as "Crit 5+" 
 - `"id": "add_X", "condition": Y, , "value": Z`: If condition Y (charged/...) is satified, add Z to value X (attacks, rend, hit, wound)

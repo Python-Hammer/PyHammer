@@ -124,7 +124,7 @@ class BetaStrike(unit_metric):
         unit.receive_damage(dmg_taken)
         dmg = unit.attack_with_all_weapons(combat_context=combat_context, enemy_save=ennemy_unit.save)
         if self.return_n_slain_models:
-            metric = ennemy_unit.receive_damage(dmg)/ ennemy_unit.total_models
+            metric = ennemy_unit.receive_damage(dmg)
         else:
             metric = dmg
         return metric if self.scale_by_cost else metric
