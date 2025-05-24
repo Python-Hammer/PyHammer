@@ -14,15 +14,22 @@ def main():
 
     ################ Define Units to study ################
 
-    units = [all_units["chaos_knights_charge"], all_units["Chaos_Lord_on_Daemonic_Mount"]]
+    units = [all_units["chaos_knights_charge"],all_units["Vanari_Dawnriders_charge"]]
 
     ################ Print a metric ################
 
+    #metric = BetaStrike(ennemy_unit=all_units["chaos_knights"], scale_by_cost=False)
+    #metric = DPS(save=4, scale_by_cost=False)
     metric = BetaStrike(ennemy_unit=all_units["chaos_knights"], scale_by_cost=False)
-    #metric = DPS(save=3, scale_by_cost=True)
-    multi_unit_plot_cdf(units, metric, n_samples=100000)
-
+    #print(average_metric(units[1], metric, n_samples=100000))
+    multi_unit_plot_cdf(units, metric, n_samples=10000)
     """
+    ################ Plot different metrics ################
+     
+    metrics = [DPS(save=s, scale_by_cost=True) for s in [2, 3, 4, 5]]
+    multimetric_plot(units, metrics, n_samples=10000)
+
+    
     ################ Plot different metrics ################
      
     metrics = [DPS(save=s, samples=100, scale_by_cost=True) for s in [2, 3, 4, 5]]

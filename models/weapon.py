@@ -50,7 +50,7 @@ class Weapon:
         """
         attacks = max(attacks, 1)
         results = {"hits": 0, "wounds": 0, "mortals": 0}
-        crit_auto_wound = any(rule["id"] == "auto_wound" for rule in self.special_rules)
+        crit_auto_wound = any(rule["id"] == "crit_auto_wound" for rule in self.special_rules)
         crit_mortal = any(rule["id"] == "crit_mortal" for rule in self.special_rules)
         crit_2_hits = any(rule["id"] == "crit_2_hits" for rule in self.special_rules)
         to_hit_mod = self._find_modifier_total_value("to_hit", combat_context)
@@ -58,8 +58,9 @@ class Weapon:
         # because applied to the target value
 
         if any([crit_auto_wound, crit_mortal, crit_2_hits]):
-            hit_rolls, crit_rolls = roll_test_with_crit(to_hit, attacks)
-            results["hits"] = hit_rolls.sum()
+            crit_threshold = 5 if any(rule["id"] == "crit_5+" for rule in self.special_rules) else 6
+            hit_rolls, crit_rolls = roll_test_with_crit(to_hit, attacks,crit_threshold)
+            results["hits"] = hit_rolls.sum() - crit_rolls.sum()
             if crit_auto_wound:
                 results["wounds"] += crit_rolls.sum()
             if crit_mortal:
@@ -69,7 +70,6 @@ class Weapon:
         else:
             hit_rolls = roll_test(to_hit, attacks)
             results["hits"] = hit_rolls.sum()
-
         return results
 
     def _process_wound_rolls(self, hits: int, combat_context: dict) -> dict:
@@ -124,21 +124,18 @@ class Weapon:
         if combat_context is None:
             combat_context = []
 
-        hit_rolls = self._process_hit_rolls(attack_count, combat_context)
-        if verbose:
-            print('hit_rolls', hit_rolls)
-        wound_rolls = self._process_wound_rolls(hit_rolls["hits"], combat_context)
-        if verbose:
-            print('wound_rolls', wound_rolls)
-        save_rolls = self._process_save_rolls(wound_rolls["wounds"], enemy_save, combat_context)
-        if verbose:
-            print('save_rolls', save_rolls)
-        damage_mod = self._find_modifier_total_value("damage", combat_context)
-        if verbose:
-            print('damage_mod', damage_mod)
+        results = self._process_hit_rolls(attack_count, combat_context) # dic with hits, wounds (crit auto-wounds) and mortals (crit mortals)
+        mortals = results["mortals"] # number of hits that deal mortal wounds
+        hits = results["hits"]
+        wounds = self._process_wound_rolls(hits, combat_context)["wounds"] # number of hits that wound
+        wounds += results["wounds"] # add crit auto-wounds to the total wounds
+        successful_attacks = self._process_save_rolls(wounds, enemy_save, combat_context)["successful_attacks"] # remove save rolls from the total wounds
+        
+        damage_mod = self._find_modifier_total_value("damage", combat_context) # get weapon damage modifier
+
         # Calculate total damage
         total_damage = self.damage.damage_value(
-            samples=save_rolls["successful_attacks"] + hit_rolls["mortals"], add_modifier=damage_mod
+            samples=successful_attacks + mortals, add_modifier=damage_mod
         )
         if verbose:
             print('total_damage', total_damage)
