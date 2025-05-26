@@ -26,6 +26,8 @@ def plot_cdf(unit, metric, n_samples=1000):
     metric_values = np.array(metric_values)
     metric_values = -np.sort(-metric_values)
     yvals = np.arange(len(metric_values)) / float(len(metric_values))
+    mean_val = np.mean(metric_values)
+    plt.axvline(mean_val, linestyle=':')
     plt.plot(metric_values, yvals, label=unit.name)
     plt.fill_between(metric_values, yvals, alpha=0.3)
     plt.xlabel(metric.metric_name)
@@ -52,8 +54,11 @@ def multi_unit_plot_cdf(units, metric, n_samples=1000):
         metric_values = dic["metric_values"]
         yvals = dic["yvals"]
         unit = dic["unit"]
-        plt.plot(metric_values, yvals, label=unit)    
-        plt.fill_between(metric_values, yvals, alpha=0.3)
+        mean_val = np.mean(metric_values)
+        color = plt.gca()._get_lines.get_next_color()
+        plt.axvline(mean_val, linestyle=':', color=color)
+        plt.plot(metric_values, yvals, label=unit, color=color)    
+        plt.fill_between(metric_values, yvals, alpha=0.3, color=color)
     plt.xlabel(metric.metric_name)
     plt.ylabel("Cumulative Probability")
     plt.legend()

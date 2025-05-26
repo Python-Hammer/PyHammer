@@ -27,6 +27,16 @@ class Profile:
         self.wounds_taken = 0
         self.is_destroyed = False
 
+    def _process_ward_rolls(self, total_damage: int) -> dict:
+        """
+        Processes the ward rolls based on the weapon's special rules and
+        taking into account the enemy's ward save.
+        Any damage that goes through the ward removes health from the target.
+        Any succeeded ward roll nullifies one damage.
+        """
+        total_damage -= roll_test(self.ward, total_damage).sum()
+        return total_damage
+
     def attack_with_all_weapons(self, combat_context: dict, enemy_save: int, verbose: bool = False) -> int:
         """Perform attacks with all weapons and return the resulting damage."""
         all_results = []
@@ -39,11 +49,12 @@ class Profile:
             all_results.append(results)
         for ability in self.abilities:
             if ability['id'] == 'impact_mortals':
-                all_results.append(impact_mortals(self.current_models,ability, combat_context))
+                all_results.append(impact_mortals(self.current_models, ability, combat_context))
         return sum(all_results)
 
     def receive_damage(self, damage: int):
         """Reduce the unit's health by the damage taken."""
+        damage = self._process_ward_rolls(damage) if self.ward else damage
         previous_models = self.current_models
         self.wounds_taken += damage
         models_slain, wounds_taken_model = divmod(self.wounds_taken, self.health)

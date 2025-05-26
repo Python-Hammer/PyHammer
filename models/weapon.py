@@ -101,20 +101,6 @@ class Weapon:
 
         return results
 
-    def _process_ward_rolls(self, total_damage: int, combat_context: dict) -> dict:
-        """
-        Processes the ward rolls based on the weapon's special rules and
-        taking into account the enemy's ward save.
-        Any damage that goes through the ward removes health from the target.
-        Any succeeded ward roll nullifies one damage.
-        """
-        enemy_ward = bound_target_value(combat_context.get("ward", 7))
-        ward_mod = self._find_modifier_total_value("ward", {})
-        enemy_ward = enemy_ward - ward_mod  # edge case that happens for some rare abilities
-        results = {"final_damage": total_damage}
-        results["final_damage"] -= roll_test(enemy_ward, total_damage).sum()
-        return results
-
     def resolve_attacks(self, attack_count: int, enemy_save: int, combat_context: list = None, verbose: bool = False):
         """
         Attacks with the weapon against a target with a given save.
@@ -139,7 +125,5 @@ class Weapon:
         )
         if verbose:
             print('total_damage', total_damage)
-        total_damage = self._process_ward_rolls(total_damage, combat_context)["final_damage"]
-        if verbose:
-            print('total_damage after ward', total_damage)
+
         return total_damage

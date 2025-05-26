@@ -2,7 +2,8 @@ from rules.unit_profiles import *
 from metrics.unit_metric import *
 from metrics.pairwise_metric import *
 import numpy as np
-from data.loading import get_all_profiles
+from data.loading import get_all_profiles, get_all_units
+from models.profile import Profile
 
 np.set_printoptions(precision=2, suppress=True)
 
@@ -10,19 +11,18 @@ np.set_printoptions(precision=2, suppress=True)
 def main():
     ################ Load all units ################
 
-    all_units = get_all_profiles(is_reinforced=False)
-
-    ################ Define Units to study ################
-
-    units = [all_units["chaos_knights_charge"],all_units["Vanari_Dawnriders_charge"]]
+    all_units = get_all_units()
+    knights = Profile(all_units["chaos_knights_charge"],is_reinforced=True)
+    dawnriders = Profile(all_units["Vanari_Dawnriders_charge"],is_reinforced=True)
 
     ################ Print a metric ################
 
-    #metric = BetaStrike(ennemy_unit=all_units["chaos_knights"], scale_by_cost=False)
+    metric = AlphaStrike(ennemy_unit=knights, scale_by_cost=False)
     #metric = DPS(save=4, scale_by_cost=False)
-    metric = BetaStrike(ennemy_unit=all_units["chaos_knights"], scale_by_cost=False)
-    #print(average_metric(units[1], metric, n_samples=100000))
-    multi_unit_plot_cdf(units, metric, n_samples=10000)
+    #metric = AlphaStrike(ennemy_unit=knights, scale_by_cost=False)
+    #print(average_metric(units[1], metric, n_samples=10000))
+    multi_unit_plot_cdf([knights,dawnriders], metric, n_samples=10000)
+    #plot_cdf(dawnriders, metric, n_samples=10000)
     """
     ################ Plot different metrics ################
      
