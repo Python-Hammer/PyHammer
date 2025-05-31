@@ -1,20 +1,28 @@
 from numpy.random import randint
 import numpy as np
+import numpy.typing as npt
 
 
-def roll_dice(n_sides: int = 6, samples: int = 1) -> np.ndarray:
+def roll_dice(n_sides: int = 6, samples: int = 1) -> npt.ArrayLike:
     """
     Rolls samples times a n_sides sided dice. Returns the result as a numpy array.
     """
     return randint(1, n_sides + 1, samples)
 
 
-def roll_test(value, dice, samples, return_crits=False):
-    # TODO: return type changes depending on parameters!! to fix
-    if return_crits:
-        rolls = roll_dice(6, samples)
-        return rolls >= value, rolls == 6
-    return roll_dice(dice, samples) >= value
+def roll_test(value: int, samples: int) -> npt.ArrayLike:
+    return roll_dice(n_sides=6, samples=samples) >= value
+
+
+def roll_test_with_crit(
+    value: int, samples: int, crit_threshold: int = 6
+) -> tuple[npt.ArrayLike, npt.ArrayLike]:
+    """
+    Rolls samples times a d6 and returns True if the roll is greater than or equal to value.
+    If the roll is above crit_threshold (e.g. Power of Hysh), it returns True.
+    """
+    rolls = roll_dice(n_sides=6, samples=samples)
+    return rolls >= value, rolls >= crit_threshold
 
 
 def bound_target_value(x: int) -> int:
@@ -25,21 +33,48 @@ def bound_target_value(x: int) -> int:
     return np.maximum(2, np.minimum(x, 7))
 
 
-def bound_save_target_value(x: int, x_old: int) -> int:
+def bound_hit_wound_target_value(original_value: int, modifier: int) -> int:
+    """
+    Binds the target value of a hit or wound roll.
+    A hit or wound cannot be lower than 2 or higher than 7,
+    and cannot be lower than the original value - 1 or
+    higher than the original value + 1.
+    """
+    modified_value = original_value + modifier
+    min_allowed = np.maximum(original_value - 1, 2)
+    max_allowed = np.minimum(original_value + 1, 7)
+    return np.maximum(min_allowed, np.minimum(modified_value, max_allowed))
+
+
+def bound_save_target_value(original_value: int, modifier: int) -> int:
     """
     Binds the target value of a save.
     A save difficulty cannot be lower than its original value - 1.
     """
-    # TODO: generalize that function to hit and wound rolls?
-    # hit and wound cant be easier than original value - 1
-    # but they also cant be harder than original value + 1
-    x_bound = bound_target_value(x)
-    return np.maximum(x_old - 1, x_bound)
+    modified_value = original_value + modifier
+    x_bound = bound_target_value(modified_value)
+    return np.maximum(original_value - 1, x_bound)
 
 
-def roll_d3_above_2(samples: int = 1) -> np.ndarray:
+def roll_d3_above_2(samples: int = 1) -> npt.ArrayLike:
     """
     Rolls a d3 and returns 0 if the result is 1
     """
     roll = roll_dice(3, samples)
     return np.where(roll == 1, 0, roll)
+
+
+def parse_roll_expression(expression: str):
+    """
+    Parse a roll expression like "2d6+3" into a dict with keys "num_dice", "sides", and "modifier".
+    For example, "2d6+3" would return {"num_dice": 2, "sides": 6, "modifier": 3}.
+    """
+    parts = expression.split("+")
+    base = parts[0]
+    modifier = int(parts[1]) if len(parts) > 1 else 0
+
+    if "d" in base:
+        num_dice, sides = map(int, base.split("d"))
+        return {"num_dice": num_dice, "sides": sides, "modifier": modifier}
+    else:  # in case a flat value is passed as a string
+        return {"num_dice": 0, "sides": 0, "modifier": int(base)}

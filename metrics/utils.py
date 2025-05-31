@@ -3,10 +3,11 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 from numpy.random import randint
-import numpy as np
+
+from models.profile import Profile
 
 
-def plot_multi_bars(dic_of_dic, alpha=0.5):
+def plot_multi_bars(dic_of_dic: dict[dict[Profile]], alpha: int = 0.5):
     # dic_of_dic[metric_name][unit_name]
     fig, ax = plt.subplots()
     legend_boxes = []
