@@ -1,0 +1,101 @@
+{"units":
+    [
+        {
+            "id": "alarith_stoneguard",
+            "name": "Alarith Stoneguard",
+            "point_cost": 120,
+            "model_count": 5,
+            "unit_type": "infantry",
+            "health": 2,
+            "save": 4,
+            "has_champion": true,
+            
+            "weapons": [
+                {
+                    "name": "stoneguard_hammers",
+                    "attacks": 2,
+                    "to_hit": 3,
+                    "to_wound": 3,
+                    "damage": 2,
+                    "rend": 1,
+                    "special_rules":
+                        [
+                        ] 
+                }
+            ]
+        },
+        {
+            "id": "vanari_bladelords",
+            "name": "Vanari Bladelords",
+            "point_cost": 140,
+            "model_count": 5,
+            "unit_type": "infantry",
+            "health": 2,
+            "save": 4,
+            "has_champion": true,
+            "weapons": [
+                {
+                    "name": "sunmetal_blade_flurry_of_blows",
+                    "attacks": 3,
+                    "to_hit": 3,
+                    "to_wound": 4,
+                    "damage": 1,
+                    "rend": 1,
+                    "special_rules":
+                        [
+                            {"id": "add_rend", "condition": "infantry", "value": 1},
+                            {"id": "crit_mortal"}
+                        ] 
+                }
+            ]
+        },
+        {
+            "id": "Vanari_Dawnriders_charge",
+            "name": "Vanari Dawnriders (Charge)",
+            "point_cost": 230,
+            "model_count": 5,
+            "unit_type": "cavalry",
+            "health": 3,
+            "save": 3,
+            "has_champion": true,
+            "weapons": [
+                {
+                    "name": "Stallions’ Dashing Hooves",
+                    "attacks": 2,
+                    "to_hit": 5,
+                    "to_wound": 3,
+                    "damage": 1,
+                    "rend": 0,
+                    "special_rules":
+                        [
+                            {"id": "companion"}
+                        ] 
+                },
+                {
+                    "attacks": 2,
+                    "damage": 2,
+                    "name": "Dawnrider Lances and Blades",
+                    "special_rules": [
+                        {
+                            "id": "crit_5+"
+                        },
+                        {
+                            "id": "crit_mortal"
+                        }
+                    ],
+                    "to_hit": 3,
+                    "to_wound": 4
+                }
+            ],
+            "abilities": [
+                {
+                    "name": "Deathly Furrows",
+                    "id": "impact_mortals",
+                    "damage": 1,
+                    "roll": "3+"
+                }
+            ]
+        }
+    ]
+}
+

@@ -1,0 +1,62 @@
+{"units":
+    [
+        {
+            "id": "dps_unit",
+            "name": "DPS",
+            "point_cost": 1,
+            "model_count": 1,
+            "unit_type": "infantry",
+            "health": 1,
+            "save": 4,
+            "has_champion": false,
+            
+            "weapons": [
+                {
+                    "name": "dps_weapon",
+                    "attacks": 1,
+                    "to_hit": 4,
+                    "to_wound": 4,
+                    "damage": 1,
+                    "rend": 1000,
+                    "special_rules":
+                        [
+                        ] 
+                }
+            ]
+        },
+        {
+            "id": "tank_unit",
+            "name": "Tank",
+            "point_cost": 1,
+            "model_count": 10,
+            "unit_type": "infantry",
+            "health": 1,
+            "save": 7,
+            "has_champion": false
+        },
+        {
+            "id": "dps_mortal",
+            "name": "DPS Mortal",
+            "point_cost": 1,
+            "model_count": 1,
+            "unit_type": "infantry",
+            "health": 1,
+            "save": 4,
+            "has_champion": false,
+            "weapons": [
+                {
+                    "name": "dps_weapon_mortal",
+                    "attacks": 1,
+                    "to_hit": 4,
+                    "to_wound": 4,
+                    "damage": 1,
+                    "rend": 0,
+                    "special_rules":
+                        [
+                            {"id": "crit_mortal"}
+                        ] 
+                }
+            ]
+        }
+    ]
+}
