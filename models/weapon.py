@@ -59,7 +59,7 @@ class Weapon:
 
         if any([crit_auto_wound, crit_mortal, crit_2_hits]):
             crit_threshold = 5 if any(rule["id"] == "crit_5+" for rule in self.special_rules) else 6
-            hit_rolls, crit_rolls = roll_test_with_crit(to_hit, attacks,crit_threshold)
+            hit_rolls, crit_rolls = roll_test_with_crit(to_hit, attacks, crit_threshold)
             results["hits"] = hit_rolls.sum() - crit_rolls.sum()
             if crit_auto_wound:
                 results["wounds"] += crit_rolls.sum()
@@ -101,7 +101,9 @@ class Weapon:
 
         return results
 
-    def resolve_attacks(self, attack_count: int, enemy_save: int, combat_context: list = None, verbose: bool = False):
+    def resolve_attacks(
+        self, attack_count: int, enemy_save: int, combat_context: list = None, verbose: bool = False
+    ) -> int:
         """
         Attacks with the weapon against a target with a given save.
         The combat_context can include additional information like rerolls, modifiers, etc.
@@ -110,20 +112,22 @@ class Weapon:
         if combat_context is None:
             combat_context = []
 
-        results = self._process_hit_rolls(attack_count, combat_context) # dic with hits, wounds (crit auto-wounds) and mortals (crit mortals)
-        mortals = results["mortals"] # number of hits that deal mortal wounds
+        results = self._process_hit_rolls(
+            attack_count, combat_context
+        )  # dic with hits, wounds (crit auto-wounds) and mortals (crit mortals)
+        mortals = results["mortals"]  # number of hits that deal mortal wounds
         hits = results["hits"]
-        wounds = self._process_wound_rolls(hits, combat_context)["wounds"] # number of hits that wound
-        wounds += results["wounds"] # add crit auto-wounds to the total wounds
-        successful_attacks = self._process_save_rolls(wounds, enemy_save, combat_context)["successful_attacks"] # remove save rolls from the total wounds
-        
-        damage_mod = self._find_modifier_total_value("damage", combat_context) # get weapon damage modifier
+        wounds = self._process_wound_rolls(hits, combat_context)["wounds"]  # number of hits that wound
+        wounds += results["wounds"]  # add crit auto-wounds to the total wounds
+        successful_attacks = self._process_save_rolls(wounds, enemy_save, combat_context)[
+            "successful_attacks"
+        ]  # remove save rolls from the total wounds
+
+        damage_mod = self._find_modifier_total_value("damage", combat_context)  # get weapon damage modifier
 
         # Calculate total damage
-        total_damage = self.damage.damage_value(
-            samples=successful_attacks + mortals, add_modifier=damage_mod
-        )
+        total_damage = self.damage.damage_value(samples=successful_attacks + mortals, add_modifier=damage_mod)
         if verbose:
-            print('total_damage', total_damage)
+            print("total_damage", total_damage)
 
         return total_damage

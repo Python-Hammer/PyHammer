@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 
 from numpy.random import randint
-import numpy as np
 
 from models.profile import Profile
 
