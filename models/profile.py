@@ -1,6 +1,7 @@
 from models.weapon import Weapon
 from models.abilities import *
 
+
 class Profile:
     def __init__(self, unit_data: dict, is_reinforced: bool = False):
         self.name = unit_data["name"]
@@ -41,18 +42,20 @@ class Profile:
         """Perform attacks with all weapons and return the resulting damage."""
         all_results = []
         for weapon in self.weapons:
-            nb_attacks_per_model = weapon.attacks + weapon._find_modifier_total_value(value_name='attacks',combat_context=combat_context)
-            nb_attacks =  nb_attacks_per_model * self.current_models
+            nb_attacks_per_model = weapon.attacks + weapon._find_modifier_total_value(
+                value_name="attacks", combat_context=combat_context
+            )
+            nb_attacks = nb_attacks_per_model * self.current_models
             if self.champion and "companion" not in [rule["id"] for rule in weapon.special_rules]:
                 nb_attacks += 1
             results = weapon.resolve_attacks(nb_attacks, enemy_save, combat_context, verbose=verbose)
             all_results.append(results)
         for ability in self.abilities:
-            if ability['id'] == 'impact_mortals':
+            if ability["id"] == "impact_mortals":
                 all_results.append(impact_mortals(self.current_models, ability, combat_context))
         return sum(all_results)
 
-    def receive_damage(self, damage: int):
+    def receive_damage(self, damage: int) -> int:
         """Reduce the unit's health by the damage taken."""
         damage = self._process_ward_rolls(damage) if self.ward else damage
         previous_models = self.current_models
