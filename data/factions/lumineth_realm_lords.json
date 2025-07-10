@@ -25,6 +25,42 @@
             ]
         },
         {
+            "id": "scourge_of_ghyran_light_of_eltharion",
+            "name": "Scourge of Ghyran Light of Eltharion",
+            "point_cost": 250,
+            "model_count": 1,
+            "unit_type": ["infantry", "hero"],
+            "health": 6,
+            "save": 3,
+            "ward": 4,
+            "weapons": [
+                {
+                    "name": "fangsword_of_eltharion",
+                    "attacks": 5,
+                    "to_hit": 2,
+                    "to_wound": 3,
+                    "damage": 3,
+                    "rend": 3,
+                    "special_rules":
+                        [
+                            {"id": "crit_2_hits"}
+                        ] 
+                },
+                {
+                    "name": "celennari_blade",
+                    "attacks": 2,
+                    "to_hit": 2,
+                    "to_wound": 3,
+                    "damage": 3,
+                    "rend": 1,
+                    "special_rules":[
+                        {"id": "add_rend", "condition": "hero", "value": 1},
+                        {"id": "add_rend", "condition": "monster", "value": 1}
+                    ]
+                }
+            ]
+        },
+        {
             "id": "vanari_bladelords",
             "name": "Vanari Bladelords",
             "point_cost": 140,
