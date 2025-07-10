@@ -1,6 +1,5 @@
 from rules.unit_profiles import *
 from metrics.unit_metric import *
-from metrics.pairwise_metric import *
 import numpy as np
 from data.loading import get_all_profiles, get_all_units
 from models.profile import Profile
@@ -12,17 +11,17 @@ def main():
     ################ Load all units ################
 
     all_units = get_all_units()
-    knights = Profile(all_units["chaos_knights_charge"],is_reinforced=True)
-    dawnriders = Profile(all_units["Vanari_Dawnriders_charge"],is_reinforced=True)
+    knights = Profile(all_units["chaos_knights_charge"], is_reinforced=False)
+    dawnriders = Profile(all_units["scourge_of_ghyran_light_of_eltharion"])
 
     ################ Print a metric ################
 
     metric = AlphaStrike(ennemy_unit=knights, scale_by_cost=False)
-    #metric = DPS(save=4, scale_by_cost=False)
-    #metric = AlphaStrike(ennemy_unit=knights, scale_by_cost=False)
-    #print(average_metric(units[1], metric, n_samples=10000))
-    multi_unit_plot_cdf([knights,dawnriders], metric, n_samples=10000)
-    #plot_cdf(dawnriders, metric, n_samples=10000)
+    # metric = DPS(save=4, scale_by_cost=False)
+    # metric = AlphaStrike(ennemy_unit=knights, scale_by_cost=False)
+    # print(average_metric(units[1], metric, n_samples=10000))
+    multi_unit_plot_cdf([dawnriders, knights], metric, n_samples=10000)
+    # plot_cdf(dawnriders, metric, n_samples=10000)
     """
     ################ Plot different metrics ################
      
@@ -50,53 +49,6 @@ def main():
     print(ranking(units, metric))
     """
 
+
 if __name__ == "__main__":
     main()
-
-"""
-import numpy as np
-from rules.unit_profiles import *
-np.set_printoptions(precision=2, suppress=True)
-
-def get_dps(unit):
-    #saves = np.array([2,3,4,5])
-    saves = np.array([2,3])
-    dps = []
-    for save in saves:
-        samples = 10000
-        dps.append(unit.DPS(save, samples).mean())
-    dps = np.array(dps)
-    return dps
-
-
-units = [ChaosKnights_Charge(), ChaosKnights_Vanilla(), Varanguard_Charge(), Varanguard_Vanilla(),  
-         ChaosLord(), DemonPrince(), Abraxia_Vanilla(), Abraxia_Medium(), Abraxia_All(), Karkadrak_Charge(), Karkadrak_Vanilla(), 
-        ChaosLordMounted_Charge(), ChaosLordMounted_Vanilla(),
-         Chosen(), ChaosWarriors(),Ogroids(),ChaosChariot(),
-         Warden(),Stoneguard(),Eltharion(),Avalenor(), Belakor(), Slautherbrute()]
-
-#units = [Stoneguard(), Stoneguard_11(), Stoneguard_rend1()]
-
-
-units = [ChaosKnights_Charge(), ChaosKnights_Vanilla(),
-        Varanguard_Charge(), Varanguard_Vanilla(), 
-        Karkadrak_Charge(), Karkadrak_Vanilla(),
-        ChaosLordMounted_Charge(), ChaosLordMounted_Vanilla()]
-
-
-dps_list = []
-name_list = []
-
-for unit in units:
-    print(f'Unit: {unit.name}. Dmg/cost:')
-    dps = 10*get_dps(unit)/unit.cost
-    #print(unit.get_tankiness_modifier(rend=1))
-    dps = unit.get_tankiness_modifier(rend=1)*get_dps(unit)/unit.cost
-    print(dps)
-    dps_list.append(dps)
-    name_list.append(unit.name)
-
-sorted_dps_list, sorted_name_list = zip(*sorted(zip(dps_list, name_list), reverse=True))
-
-print(sorted_name_list)
-"""
