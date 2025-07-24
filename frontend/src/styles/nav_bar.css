@@ -1,0 +1,25 @@
+/* navbar.css */
+nav {
+  background-color: #F5CC62;
+  padding: 1rem;
+}
+
+nav a {
+  font-family: 'Roboto', sans-serif;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #1E1E1C;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #007bff;
+}
+
+nav p {
+  font-family: 'Jockey One', sans-serif;
+  margin-right: 1rem;
+  text-decoration: none;
+  color: #1E1E1C;
+  font-weight: 500;
+}
