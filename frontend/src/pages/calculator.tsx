@@ -1,8 +1,15 @@
+import '../styles/calculator.css';
+import UnitSelector from "../components/unit_selector";
+
 function calculator_page() {
   return (
-    <div>
+    <div className='calculator_page'>
       <h1>Calculator</h1>
-      <p>This is where the tactical calculator will go.</p>
+      <p>Select 2 units. Then make them BATTLE !</p>
+      <div className="calculator_battle_content">
+        <UnitSelector />
+        <UnitSelector />
+      </div>
     </div>
   );
 }

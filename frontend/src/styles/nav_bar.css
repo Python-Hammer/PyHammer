@@ -1,25 +1,49 @@
 /* navbar.css */
+
 nav {
-  background-color: #F5CC62;
-  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 0.5rem;
+  margin: 0rem;
+}
+
+nav .logo {
+  cursor: pointer;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 6rem;
+  margin-right: 5rem;
 }
 
 nav a {
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--font-family);
   margin-right: 1rem;
   text-decoration: none;
-  color: #1E1E1C;
+  color: var(--text-color);
   font-weight: 500;
+  opacity: 0.5;
 }
 
 nav a:hover {
-  color: #007bff;
+  opacity: 1;
 }
 
 nav p {
-  font-family: 'Jockey One', sans-serif;
+  font-family: var(--header-font-family);
   margin-right: 1rem;
   text-decoration: none;
-  color: #1E1E1C;
+  color: var(--text-color);
   font-weight: 500;
 }
+
+.burger_icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+

@@ -1,0 +1,25 @@
+.unit_selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 1rem;
+    width: 30%;
+    background-color: var(--bg-color-light-dark);
+}
+
+.unit_selector h2 {
+  /* margin: 0; */
+}
+
+.unit_portrait {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.unit_portrait_img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}

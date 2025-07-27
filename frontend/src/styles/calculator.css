@@ -1,0 +1,12 @@
+.calculator_page {
+  background-color: var(--bg-color-dark);
+  padding: 2rem;
+  color: var(--text-color-light);
+}
+
+.calculator_battle_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}

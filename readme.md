@@ -25,6 +25,46 @@ run 🚀
 python main.py
 ```
 
+#### Setting up for developping the frontend
+Install node and npm
+- Download and install from https://nodejs.org
+- Verify installation:
+
+```bash
+node -v
+npm -v
+```
+
+Install Dependencies
+```shell
+npm install
+```
+
+Start the Development Server
+```shell
+cd frontend/
+npm run dev
+```
+
+This will start the Vite dev server. Open your browser and navigate to http://localhost:5173 to view the app.
+
+Start the Development Server
+```shell
+npm run dev
+```
+
+##### Project Structure
+
+The project uses the standard Vite + React + TypeScript setup. Key folders:
+
+- `src/` – Main source code
+- `src/pages/` – Page components
+- `src/components/` – Reusable UI components
+- `src/assets/` – Static assets (images, fonts, etc.)
+- `src/hooks/` – React hooks to handle state-based changes
+- `src/styles/` – css files
+
+
 ### Customizing
 
 You can add unit profiles in rules > **unit_profiles.py**
