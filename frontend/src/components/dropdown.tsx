@@ -14,14 +14,15 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ label }) => {
 
   return (
     <div className="dropdown_menu">
+      <label>{label}</label>
       <button className="dropdown_button" onClick={toggleDropdown}>
-        {label}
+        Select {label}
       </button>
       {isOpen && (
         <ul className="dropdown_list">
-          <li><a href="#">Option 1</a></li>
-          <li><a href="#">Option 2</a></li>
-          <li><a href="#">Option 3</a></li>
+          <button>Option 1</button>
+          <button>Option 2</button>
+          <button>Option 3</button>
         </ul>
       )}
     </div>

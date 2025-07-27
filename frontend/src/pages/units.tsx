@@ -1,8 +1,14 @@
+import React from 'react';
+import '../styles/units_page.css';
+
 function units_page() {
   return (
-    <div>
-      <h1>Unit List</h1>
+    <div className='units_page page-container'>
+      <h1>UNITS</h1>
       <p>This page will show all units.</p>
+      <div className='units_list'>
+        
+      </div>
     </div>
   );
 }

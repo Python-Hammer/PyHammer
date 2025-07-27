@@ -1,11 +1,11 @@
 .home-page {
+  height: 82vh;
+  width: 100%;
   /* background image */
   background-image: url('../assets/battle.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh; /* or 100% if you want it to fit content */
-  width: 100%;
   background-attachment: fixed;
 }
 

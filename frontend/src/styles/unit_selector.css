@@ -1,15 +1,13 @@
 .unit_selector {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
-    width: 30%;
-    background-color: var(--bg-color-light-dark);
-}
-
-.unit_selector h2 {
-  /* margin: 0; */
+  background-color: var(--bg-color-lighter);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: stretch;
+  padding: 1rem;
+  gap: 1rem;
+  width: 30%;
 }
 
 .unit_portrait {

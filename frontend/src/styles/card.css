@@ -1,0 +1,22 @@
+.card {
+  background-color: var(--bg-color-light-dark);
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+}
+
+.card .card__title {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  font-weight: var(--medium-font-weight);
+  color: var(--text-color-light);
+}
+
+.card .card__content {
+  color: var(--text-color-light);
+  font-weight: var(--bold-font-weight);
+  flex-grow: 1;
+  text-align: center;
+}

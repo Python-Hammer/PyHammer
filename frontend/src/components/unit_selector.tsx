@@ -9,9 +9,9 @@ const UnitSelector = () => {
 
   return (
     <div className="unit_selector">
-        <h2>Select Your Unit</h2>
-        <DropdownMenu label="Select Faction" />
-        <DropdownMenu label="Select Unit" />
+        <h2>UNIT</h2>
+        <DropdownMenu label="Faction" />
+        <DropdownMenu label="Unit" />
         <div className="unit_portrait">
             <img
                 src={burgerIcon}
@@ -20,8 +20,8 @@ const UnitSelector = () => {
             />
             <p>Unit Name</p>
         </div>
-        <DropdownMenu label="Select Weapon 1" />
-        <DropdownMenu label="Select Weapon 2" />
+        <DropdownMenu label="Weapon 1" />
+        <DropdownMenu label="Weapon 2" />
     </div>
   );
 }

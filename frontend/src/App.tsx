@@ -11,6 +11,7 @@ import Footer from './components/footer';
 
 // styles
 import './styles/global.css';
+import './styles/layout.css';
 
 function App() {
   return (
