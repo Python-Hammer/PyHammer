@@ -3,4 +3,4 @@ __pycache__
 *.pyc
 .vscode
 *.egg-info
-*/node_modules
+frontend/node_modules/
