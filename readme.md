@@ -25,7 +25,20 @@ run 🚀
 python main.py
 ```
 
-#### Setting up for developping the frontend
+#### Setting up the backend
+Install FastAPI and uvicorn (should already be done if you installed requirements)
+```shell
+pip install fastapi uvicorn
+```
+
+Start the Development Server
+```shell
+uvicorn main:app --reload
+```
+
+This will start the FastAPI dev server at http://localhost:8000. You can also visit http://localhost:8000/docs to try the automatically generated API interactively.
+
+#### Setting up the frontend
 Install node and npm
 - Download and install from https://nodejs.org
 - Verify installation:
@@ -37,6 +50,7 @@ npm -v
 
 Install Dependencies
 ```shell
+cd frontend/
 npm install
 ```
 
@@ -48,10 +62,6 @@ npm run dev
 
 This will start the Vite dev server. Open your browser and navigate to http://localhost:5173 to view the app.
 
-Start the Development Server
-```shell
-npm run dev
-```
 
 ##### Project Structure
 
