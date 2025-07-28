@@ -4,7 +4,13 @@
 
 Simulates a number of fights for a list of units then displays graphs with the results
 
-### Quickstart
+### Backend setup
+
+Navigate to backend directory:
+
+```shell
+cd backend
+```
 
 Setup your virtual environment:
 
@@ -21,24 +27,16 @@ source .venv/bin/activate
 install the necessary packages 📦
 
 ```shell
-pip install -r requirements.txt
+pip install -e .
 ```
 
-run 🚀
+run, for backend testing purposes & CLI: 🚀
 
 ```shell
 python main.py
 ```
 
-#### Setting up the backend
-
-Install FastAPI and uvicorn (should already be done if you installed requirements)
-
-```shell
-pip install fastapi uvicorn
-```
-
-Start the Development Server
+to start the backend:
 
 ```shell
 uvicorn main:app --reload
@@ -46,7 +44,7 @@ uvicorn main:app --reload
 
 This will start the FastAPI dev server at http://localhost:8000. You can also visit http://localhost:8000/docs to try the automatically generated API interactively.
 
-#### Setting up the frontend
+### Setting up the frontend
 
 Install node and npm
 
@@ -87,7 +85,7 @@ The project uses the standard Vite + React + TypeScript setup. Key folders:
 
 ### Customizing
 
-You can add unit profiles in rules > **unit_profiles.py**
+You can add unit profiles in **backend/data**.
 
 To add a unit to the simulation, insert it in the 'units' array in the **main.py** file
 
