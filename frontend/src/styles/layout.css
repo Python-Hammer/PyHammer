@@ -1,0 +1,21 @@
+/* 
+styles/layout.css
+These styles define the structure and positioning of your app’s main sections—how the page is arranged visually.
+    - Header, navbar, footer styles
+    - Grid or flexbox layout rules
+    - Page container widths and padding
+    - Responsive layout breakpoints
+    - Sticky or fixed positioning for layout elements
+*/
+
+main {
+  padding: 2rem;
+  min-height: 70vh;
+}
+
+.page-container {
+  padding-top: var(--page-padding-top-bottom);
+  padding-bottom: var(--page-padding-top-bottom);
+  padding-left: var(--page-padding-left-right);
+  padding-right: var(--page-padding-left-right);
+}

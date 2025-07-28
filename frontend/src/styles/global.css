@@ -1,0 +1,95 @@
+/* 
+styles/global.css
+These are base styles that apply across your entire application. They define the visual language of your app and ensure consistency.
+    - CSS resets or normalization
+    - Root variables (:root) for colors, spacing, fonts
+    - Base element styles (body, a, button, input, etc.)
+    - Typography rules (font families, sizes, line heights)
+    - Utility classes (e.g., .text-center, .mt-2, .hidden)
+    - Accessibility helpers (e.g., .sr-only)
+*/
+
+:root {
+  /* colors */
+  --primary-color: #F5CC62;
+  --accent-color: #3498db;
+  --bg-color: #ededed;
+  --bg-color-lightest: #2D2B2A;
+  --bg-color-lighter: #1E1D1C;
+  --bg-color-dark: #121213;
+  --text-color-dark: #333;
+  --text-color-light: #ededed;
+  --text-color-grey: #686868;
+
+  /* typography */
+  --body-font-family: 'Roboto', sans-serif;
+  --header-font-family: 'Jockey One', sans-serif;
+  --body-font-size: 14px;
+  --h1-font-size: 20px;
+  --h2-font-size: 16px;
+  --light-font-weight: 100;
+  --medium-font-weight: 300;
+  --bold-font-weight: 700;
+
+  /* layout (shapes, margins and paddings, gaps, ...) */
+  --border-radius: 4px;
+  --page-padding-top-bottom: 50px;
+  --page-padding-left-right: 70px;
+  --gap-size-medium: 1rem;
+  --gap-size-large: 2rem;
+}
+
+/* defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-color-light);
+  font-family: var(--header-font-family);
+  font-weight: var(--medium-font-weight);
+  line-height: 1.6;
+}
+
+h1 {
+  font-size: var(--h1-font-size);
+}
+
+h2 {
+  font-size: var(--h2-font-size);
+}
+
+body {
+  color: var(--text-color-light);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  font-weight: var(--medium-font-weight);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--text-color-dark);
+  font-weight: var(--medium-font-weight);
+  text-decoration: none;
+}
+
+a:hover {
+  font-weight: var(--medium-font-weight);
+  color: var(--accent-color);
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-color-lightest);
+    color: var(--text-color-light);
+    font-weight: var(--medium-font-weight);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--primary-color);
+}

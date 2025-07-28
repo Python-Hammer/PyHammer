@@ -1,0 +1,48 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--primary-color);
+  padding: 0.5rem;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  margin: 0rem;
+}
+
+nav .logo {
+  cursor: pointer;
+}
+
+nav .nav-links {
+  display: flex;
+  gap: 6rem;
+  margin-right: 5rem;
+}
+
+nav a {
+  font-family: var(--body-font-family);
+  margin-right: 1rem;
+  text-decoration: none;
+  color: var(--text-color-dark);
+  opacity: 0.5;
+}
+
+nav a:hover {
+  color: var(--text-color-dark);
+  opacity: 1;
+}
+
+nav p {
+  font-family: var(--header-font-family);
+  margin-right: 1rem;
+  text-decoration: none;
+  color: var(--text-color-dark);
+}
+
+.burger_icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+

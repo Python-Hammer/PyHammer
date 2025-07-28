@@ -1,0 +1,17 @@
+footer {
+  background-color: var(--primary-color);
+  padding: 0.5rem;
+  text-align: center;
+  color: var(--text-color-dark);
+}
+
+.footer_links {
+  color: var(--text-color-dark);
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.footer_links a:hover {
+  color: var(--accent-color);
+}

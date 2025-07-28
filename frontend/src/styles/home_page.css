@@ -1,0 +1,28 @@
+.home-page {
+  height: 82vh;
+  width: 100%;
+  /* background image */
+  background-image: url('../assets/battle.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.home-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  padding: 20px;
+}
+
+.home-page h1 {
+  color: var(--text-color-light);
+}
+
+.home-page p {
+  color: var(--text-color-light);
+}

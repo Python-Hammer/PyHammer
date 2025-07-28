@@ -1,0 +1,13 @@
+.units_page {
+  background-color: var(--bg-color-dark);
+  color: var(--text-color-light);
+  padding: 2rem;
+  height: 82vh;
+}
+
+.units_list {
+  background-color: var(--bg-color-lighter);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-size-medium);
+}

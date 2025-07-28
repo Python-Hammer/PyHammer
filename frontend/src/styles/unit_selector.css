@@ -1,0 +1,23 @@
+.unit_selector {
+  background-color: var(--bg-color-lighter);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: stretch;
+  padding: 1rem;
+  gap: 1rem;
+  width: 30%;
+}
+
+.unit_portrait {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.unit_portrait_img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}

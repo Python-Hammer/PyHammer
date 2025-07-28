@@ -25,6 +25,57 @@ run 🚀
 python main.py
 ```
 
+#### Setting up the backend
+Install FastAPI and uvicorn (should already be done if you installed requirements)
+```shell
+pip install fastapi uvicorn
+```
+
+Start the Development Server
+```shell
+uvicorn main:app --reload
+```
+
+This will start the FastAPI dev server at http://localhost:8000. You can also visit http://localhost:8000/docs to try the automatically generated API interactively.
+
+#### Setting up the frontend
+Install node and npm
+- Download and install from https://nodejs.org
+- Verify installation:
+
+```bash
+node -v
+npm -v
+```
+
+Install Dependencies
+```shell
+cd frontend/
+npm install
+```
+
+Start the Development Server
+```shell
+cd frontend/
+npm run dev
+```
+
+This will start the Vite dev server. Open your browser and navigate to http://localhost:5173 to view the app.
+
+
+##### Project Structure
+
+The project uses the standard Vite + React + TypeScript setup. Key folders:
+
+- `src/` – Main source code
+- `src/pages/` – Page components
+- `src/components/` – Reusable UI components
+- `src/assets/` – Static assets (images, fonts, etc.)
+- `src/hooks/` – React hooks to handle state-based changes
+- `src/styles/` – css files
+
+
+
 ### Customizing
 
 You can add unit profiles in rules > **unit_profiles.py**
