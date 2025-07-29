@@ -13,8 +13,31 @@ const calculator_page = () => {
   const [damage, setDamage] = useState<number | null>(null);
   const [plot, setPlot] = useState<ReactElement | null>(null);
 
-  const calculateDamage = async () => {
-    const response = await fetch("http://localhost:8000/calculate-damage", {
+  const alphaStrike = async () => {
+    if (!attackerUnit || !defenderUnit) {
+      console.error("Both attacker and defender units must be selected.");
+      return;
+    }
+    const response = await fetch("http://localhost:8000/alpha-strike", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        attacker: getUnitForApi(attackerUnit),
+        defender: getUnitForApi(defenderUnit),
+      }),
+    });
+
+    const data = await response.json();
+    setDamage(data.average_damage);
+    setPlot(data.plot_cdf);
+  };
+
+  const betaStrike = async () => {
+    if (!attackerUnit || !defenderUnit) {
+      console.error("Both attacker and defender units must be selected.");
+      return;
+    }
+    const response = await fetch("http://localhost:8000/beta-strike", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -40,7 +63,8 @@ const calculator_page = () => {
           <UnitStatsCard unit={attackerUnit} />
         </div>
         <div className="results">
-          <button onClick={calculateDamage}>Battle</button>
+          <button onClick={alphaStrike}>Alpha Strike</button>
+          <button onClick={betaStrike}>Beta Strike</button>
           {damage !== null && (
             <Card title="Average damage" content={damage.toString()} />
           )}
