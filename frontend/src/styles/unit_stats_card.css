@@ -1,11 +1,12 @@
 /* unit_stats_card.css */
 .unit_stats_card {
-  border: 2px solid #333;
-  border-radius: 8px;
-  padding: 16px;
-  background: #f8f9fa;
+  border: 2px solid var(--bg-color-lighter);
+  border-radius: var(--border-radius);
+  padding: var(--gap-size-medium);
+  background: var(--bg-color-lightest);
   width: 50%;
-  font-family: Arial, sans-serif;
+  font-family: var(--body-font-family);
+  color: var(--text-color-light);
 }
 
 .unit_stats_card.empty {
@@ -13,44 +14,47 @@
   align-items: center;
   justify-content: center;
   height: 200px;
-  color: #666;
+  color: var(--text-color-grey);
   font-style: italic;
 }
 
 .unit_header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--bg-color-lighter);
   padding-bottom: 12px;
-  margin-bottom: 16px;
+  margin-bottom: var(--gap-size-medium);
 }
 
 .unit_name {
   margin: 0 0 8px 0;
-  color: #2c3e50;
-  font-size: 1.4em;
+  color: var(--text-color-light);
+  font-family: var(--header-font-family);
+  font-size: var(--h1-font-size);
+  font-weight: var(--medium-font-weight);
 }
 
 .unit_meta {
   display: flex;
   gap: 12px;
-  font-size: 0.9em;
-  color: #666;
+  font-size: var(--body-font-size);
+  color: var(--text-color-grey);
 }
 
 .unit_meta span {
   padding: 2px 6px;
-  background: #e9ecef;
-  border-radius: 3px;
+  background: var(--bg-color-lighter);
+  border-radius: var(--border-radius);
+  color: var(--text-color-light);
 }
 
 .unit_defensive_stats {
   display: flex;
-  gap: 16px;
+  gap: var(--gap-size-medium);
   align-items: center;
   padding: 12px 0;
-  background: #fff;
-  border-radius: 4px;
+  background: var(--bg-color-lighter);
+  border-radius: var(--border-radius);
   padding: 8px 12px;
-  margin-bottom: 16px;
+  margin-bottom: var(--gap-size-medium);
 }
 
 .stat_group {
@@ -62,41 +66,43 @@
 
 .stat_label {
   font-size: 0.8em;
-  color: #666;
-  font-weight: 500;
+  color: var(--text-color-grey);
+  font-weight: var(--medium-font-weight);
 }
 
 .stat_value {
   font-size: 1.1em;
-  font-weight: bold;
-  color: #2c3e50;
+  font-weight: var(--bold-font-weight);
+  color: var(--text-color-light);
 }
 
 .champion_indicator {
-  color: #f39c12;
-  font-weight: bold;
+  color: var(--primary-color);
+  font-weight: var(--bold-font-weight);
   font-size: 0.9em;
 }
 
 .weapons_section,
 .abilities_section {
-  margin-bottom: 16px;
+  margin-bottom: var(--gap-size-medium);
 }
 
 .weapons_section h4,
 .abilities_section h4 {
   margin: 0 0 8px 0;
-  color: #34495e;
-  font-size: 1.1em;
-  border-bottom: 1px solid #ecf0f1;
+  color: var(--text-color-light);
+  font-family: var(--header-font-family);
+  font-size: var(--h2-font-size);
+  font-weight: var(--medium-font-weight);
+  border-bottom: 1px solid var(--bg-color-lighter);
   padding-bottom: 4px;
 }
 
 .weapon_card,
 .ability_card {
-  background: #fff;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  background: var(--bg-color-lighter);
+  border: 1px solid var(--bg-color-dark);
+  border-radius: var(--border-radius);
   padding: 12px;
   margin-bottom: 8px;
 }
@@ -104,15 +110,17 @@
 .weapon_name,
 .ability_name {
   margin: 0 0 8px 0;
-  color: #2c3e50;
+  color: var(--text-color-light);
+  font-family: var(--header-font-family);
   font-size: 1em;
-  font-weight: 600;
+  font-weight: var(--medium-font-weight);
 }
 
 .weapon_stats {
   display: flex;
   gap: 12px;
   margin-bottom: 8px;
+  flex-wrap: wrap;
 }
 
 .weapon_stat {
@@ -120,34 +128,35 @@
   flex-direction: column;
   align-items: center;
   gap: 2px;
+  min-width: 50px;
 }
 
 .weapon_stat .label {
   font-size: 0.75em;
-  color: #666;
-  font-weight: 500;
+  color: var(--text-color-grey);
+  font-weight: var(--medium-font-weight);
 }
 
 .weapon_stat .value {
-  font-weight: bold;
-  color: #2c3e50;
+  font-weight: var(--bold-font-weight);
+  color: var(--text-color-light);
 }
 
 .special_rules {
   margin-top: 8px;
   padding-top: 8px;
-  border-top: 1px solid #ecf0f1;
+  border-top: 1px solid var(--bg-color-dark);
   font-size: 0.85em;
 }
 
 .special_rules_label {
-  font-weight: 600;
-  color: #666;
+  font-weight: var(--bold-font-weight);
+  color: var(--text-color-grey);
   margin-right: 6px;
 }
 
 .special_rules_text {
-  color: #7f8c8d;
+  color: var(--text-color-grey);
   font-style: italic;
 }
 
@@ -155,5 +164,33 @@
   display: flex;
   gap: 12px;
   font-size: 0.9em;
-  color: #666;
+  color: var(--text-color-grey);
+  flex-wrap: wrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .unit_stats_card {
+    width: 100%;
+    padding: var(--gap-size-medium);
+  }
+
+  .weapon_stats {
+    gap: 8px;
+  }
+
+  .weapon_stat {
+    min-width: 40px;
+  }
+}
+
+/* Enhanced styling for better visual hierarchy */
+.unit_stats_card:hover {
+  border-color: var(--primary-color);
+  transition: border-color 0.2s ease;
+}
+
+.weapon_card:hover {
+  background: var(--bg-color-lightest);
+  transition: background-color 0.2s ease;
 }
