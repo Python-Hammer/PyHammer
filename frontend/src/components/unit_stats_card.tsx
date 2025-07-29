@@ -157,4 +157,33 @@ const UnitStatsCard: React.FC<UnitStatsCardProps> = ({ unit }) => {
   );
 };
 
+const convertUnitToJson = (unit: Unit) => {
+  return {
+    id: unit.id,
+    name: unit.name,
+    point_cost: unit.point_cost,
+    model_count: unit.model_count,
+    unit_type: unit.unit_type,
+    health: unit.health,
+    save: unit.save,
+    ...(unit.ward && { ward: unit.ward }),
+    ...(unit.has_champion && { has_champion: unit.has_champion }),
+    weapons: unit.weapons.map((weapon) => ({
+      name: weapon.name,
+      attacks: weapon.attacks,
+      to_hit: weapon.to_hit,
+      to_wound: weapon.to_wound,
+      damage: weapon.damage,
+      rend: weapon.rend,
+      ...(weapon.special_rules && { special_rules: weapon.special_rules }),
+    })),
+    ...(unit.abilities && { abilities: unit.abilities }),
+  };
+};
+
+export const getUnitForApi = (unit: Unit | null): object | null => {
+  if (!unit) return null;
+  return convertUnitToJson(unit);
+};
+
 export default UnitStatsCard;

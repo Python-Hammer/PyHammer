@@ -4,6 +4,7 @@ import "../styles/calculator_page.css";
 // components
 import UnitSelector from "../components/unit_selector";
 import UnitStatsCard from "../components/unit_stats_card";
+import { getUnitForApi } from "../components/unit_stats_card";
 import Card from "../components/card";
 
 const calculator_page = () => {
@@ -15,11 +16,14 @@ const calculator_page = () => {
     const response = await fetch("http://localhost:8000/calculate-damage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ attacker, defender }),
+      body: JSON.stringify({
+        attacker: getUnitForApi(attackerUnit),
+        defender: getUnitForApi(defenderUnit),
+      }),
     });
 
     const data = await response.json();
-    setDamage(data.damage);
+    setDamage(data);
   };
 
   return (
