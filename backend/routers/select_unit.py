@@ -6,7 +6,7 @@ router = APIRouter()
 
 
 @router.get("/faction_list")
-async def get_faction_list() -> list[str]:
+async def get_faction_list() -> list[dict]:
     """
     Returns a list of all available factions.
     """
@@ -14,9 +14,9 @@ async def get_faction_list() -> list[str]:
 
 
 @router.get("/faction_list/{faction_name}/units")
-async def get_units_by_faction(faction_name: str) -> list[str]:
+async def get_units_by_faction(faction_name: str) -> list[dict]:
     """
     Returns a list of all units for a given faction.
     """
-    units = get_all_units(faction_name=FACTION_NAME_MAPPING[faction_name])
-    return [unit["name"] for unit in units.values()]
+    units = get_all_units(faction_name=faction_name)
+    return [{"id": unit["id"], "name": unit["name"]} for unit in units.values()]

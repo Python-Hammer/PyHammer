@@ -1,14 +1,18 @@
 import React, { useEffect } from "react";
-import DropdownMenu from "./dropdown";
+import DropdownMenu, { type DropdownOption } from "./dropdown";
 import "../styles/unit_selector.css";
 import burgerIcon from "../assets/icon-burger.png";
 
 const UnitSelector = () => {
-  const [units, setUnits] = React.useState<string[]>([]);
-  const [factions, setFactions] = React.useState<string[]>([]);
-  const weapons = ["Sword", "Bow"];
+  const [units, setUnits] = React.useState<DropdownOption[]>([]);
+  const [factions, setFactions] = React.useState<DropdownOption[]>([]);
   const [unit, setUnit] = React.useState("");
   const [faction, setFaction] = React.useState("");
+
+  const getUnitName = (unitId: string): string => {
+    const foundUnit = units.find((u) => u.id === unitId);
+    return foundUnit ? foundUnit.name : "";
+  };
 
   useEffect(() => {
     const fetchFactions = async () => {
@@ -36,7 +40,7 @@ const UnitSelector = () => {
 
   return (
     <div className="unit_selector">
-      <h2>{unit.toUpperCase()}</h2>
+      <h2>{getUnitName(unit).toUpperCase()}</h2>
       <DropdownMenu
         label="Faction"
         options={factions}
@@ -55,7 +59,7 @@ const UnitSelector = () => {
           alt="Unit Portrait"
           className="unit_portrait_img"
         />
-        <p>{unit}</p>
+        <p>{getUnitName(unit)}</p>
       </div>
     </div>
   );

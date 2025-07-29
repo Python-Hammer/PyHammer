@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
-import '../styles/dropdown.css';
+import React, { useState } from "react";
+import "../styles/dropdown.css";
+
+export interface DropdownOption {
+  id: string;
+  name: string;
+}
 
 interface DropdownMenuProps {
   label: string;
-  options?: string[];
+  options?: DropdownOption[];
   selection?: string;
   onChange: (value: string) => void;
 }
 
-const DropdownMenu: React.FC<DropdownMenuProps> = ({ label, options, selection, onChange }) => {
+const DropdownMenu: React.FC<DropdownMenuProps> = ({
+  label,
+  options,
+  selection,
+  onChange,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -18,27 +28,20 @@ const DropdownMenu: React.FC<DropdownMenuProps> = ({ label, options, selection, 
   return (
     <div className="dropdown_menu">
       <label>{label}</label>
-      {/* <button className="dropdown_button" onClick={toggleDropdown}>
-        Select {label}
-      </button> */}
-      {/* {isOpen && (
-        <ul className="dropdown_list">
-          {units.map((unit) => (
-            <li key={unit}>
-              <button onClick={(e) => onChange(e.target.value)}>{unit}</button>
-            </li>
+      <select
+        value={selection ?? ""}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        <option value="" disabled>
+          Select a {label}
+        </option>
+        {options &&
+          options.map((option) => (
+            <option key={option.id} value={option.id}>
+              {option.name}
+            </option>
           ))}
-        </ul>
-      )} */}
-      <select value={selection ?? ""} onChange={(e) => onChange(e.target.value)}>
-        <option value="" disabled>Select a {label}</option>
-        {options && options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
       </select>
-
     </div>
   );
 };
