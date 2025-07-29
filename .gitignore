@@ -4,3 +4,4 @@ __pycache__
 .vscode
 *.egg-info
 frontend/node_modules/
+frontend/.vite/
