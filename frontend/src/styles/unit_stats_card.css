@@ -1,0 +1,159 @@
+/* unit_stats_card.css */
+.unit_stats_card {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  background: #f8f9fa;
+  width: 50%;
+  font-family: Arial, sans-serif;
+}
+
+.unit_stats_card.empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  color: #666;
+  font-style: italic;
+}
+
+.unit_header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.unit_name {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 1.4em;
+}
+
+.unit_meta {
+  display: flex;
+  gap: 12px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.unit_meta span {
+  padding: 2px 6px;
+  background: #e9ecef;
+  border-radius: 3px;
+}
+
+.unit_defensive_stats {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  background: #fff;
+  border-radius: 4px;
+  padding: 8px 12px;
+  margin-bottom: 16px;
+}
+
+.stat_group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat_label {
+  font-size: 0.8em;
+  color: #666;
+  font-weight: 500;
+}
+
+.stat_value {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.champion_indicator {
+  color: #f39c12;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.weapons_section,
+.abilities_section {
+  margin-bottom: 16px;
+}
+
+.weapons_section h4,
+.abilities_section h4 {
+  margin: 0 0 8px 0;
+  color: #34495e;
+  font-size: 1.1em;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 4px;
+}
+
+.weapon_card,
+.ability_card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+}
+
+.weapon_name,
+.ability_name {
+  margin: 0 0 8px 0;
+  color: #2c3e50;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.weapon_stats {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.weapon_stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.weapon_stat .label {
+  font-size: 0.75em;
+  color: #666;
+  font-weight: 500;
+}
+
+.weapon_stat .value {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.special_rules {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #ecf0f1;
+  font-size: 0.85em;
+}
+
+.special_rules_label {
+  font-weight: 600;
+  color: #666;
+  margin-right: 6px;
+}
+
+.special_rules_text {
+  color: #7f8c8d;
+  font-style: italic;
+}
+
+.ability_details {
+  display: flex;
+  gap: 12px;
+  font-size: 0.9em;
+  color: #666;
+}

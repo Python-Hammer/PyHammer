@@ -3,7 +3,11 @@ import DropdownMenu, { type DropdownOption } from "./dropdown";
 import "../styles/unit_selector.css";
 import burgerIcon from "../assets/icon-burger.png";
 
-const UnitSelector = () => {
+interface UnitSelectorProps {
+  onUnitSelect?: (unit: any) => void;
+}
+
+const UnitSelector = ({ onUnitSelect }: UnitSelectorProps) => {
   const [units, setUnits] = React.useState<DropdownOption[]>([]);
   const [factions, setFactions] = React.useState<DropdownOption[]>([]);
   const [unit, setUnit] = React.useState("");
@@ -12,6 +16,21 @@ const UnitSelector = () => {
   const getUnitName = (unitId: string): string => {
     const foundUnit = units.find((u) => u.id === unitId);
     return foundUnit ? foundUnit.name : "";
+  };
+
+  const handleUnitChange = async (unitId: string) => {
+    setUnit(unitId);
+    if (onUnitSelect && unitId) {
+      try {
+        const response = await fetch(
+          `http://localhost:8000/unit_info/${faction}/${unitId}`
+        );
+        const data = await response.json();
+        onUnitSelect(data);
+      } catch (error) {
+        console.error("Error fetching unit data:", error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -51,7 +70,7 @@ const UnitSelector = () => {
         label="Unit"
         options={units}
         selection={unit}
-        onChange={setUnit}
+        onChange={handleUnitChange}
       />
       <div className="unit_portrait">
         <img

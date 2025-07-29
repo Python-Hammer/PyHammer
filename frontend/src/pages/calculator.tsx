@@ -1,45 +1,54 @@
-import { useState } from 'react';
-import '../styles/calculator_page.css';
+import { useState } from "react";
+import "../styles/calculator_page.css";
 
 // components
 import UnitSelector from "../components/unit_selector";
+import UnitStatsCard from "../components/unit_stats_card";
 import Card from "../components/card";
 
-const calculator_page = async () => {
-  const [attacker, setAttacker] = useState("Steam Tank");
-  const [defender, setDefender] = useState("Immortis Guard");
+const calculator_page = () => {
+  const [attackerUnit, setAttackerUnit] = useState(null);
+  const [defenderUnit, setDefenderUnit] = useState(null);
   const [damage, setDamage] = useState<number | null>(null);
 
   const calculateDamage = async () => {
     const response = await fetch("http://localhost:8000/calculate-damage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ attacker, defender })
+      body: JSON.stringify({ attacker, defender }),
     });
 
     const data = await response.json();
     setDamage(data.damage);
-  }
+  };
 
   return (
-    <div className='calculator_page page-container'>
-      <h1>CALCULATOR</h1>
-      <p>Select 2 units. Then make them BATTLE !</p>
+    <div className="calculator_page page-container">
+      <div className="calculator_header">
+        <h1>CALCULATOR</h1>
+        <p>Select 2 units. Then make them BATTLE !</p>
+      </div>
       <div className="calculator_battle_content">
-        <UnitSelector />
-        <div className='results'>
+        <div className="unit_section_left">
+          <UnitSelector onUnitSelect={setAttackerUnit} />
+          <UnitStatsCard unit={attackerUnit} />
+        </div>
+        <div className="results">
           <button onClick={calculateDamage}>Battle</button>
           {damage !== null && (
-          <Card title="Average damage" content={damage.toString()} />
+            <Card title="Average damage" content={damage.toString()} />
           )}
-          <div className='results_content'>
+          <div className="results_content">
             <p>Results will be displayed here after battle.</p>
           </div>
         </div>
-        <UnitSelector />
+        <div className="unit_section_right">
+          <UnitSelector onUnitSelect={setDefenderUnit} />
+          <UnitStatsCard unit={defenderUnit} />
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default calculator_page;
