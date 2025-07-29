@@ -11,6 +11,9 @@ class Profile:
         self.health = unit_data["health"]
         self.save = unit_data["save"]
         self.ward = unit_data.get("ward", None)
+        unit_type = unit_data.get("unit_type", [])
+        self.unit_type = [unit_type] if isinstance(unit_type, str) else unit_type
+        # ^ Unit type can be a list or a single string
         self.champion = unit_data.get("has_champion", True)
         self.wounds_taken = 0
         self.is_destroyed = False

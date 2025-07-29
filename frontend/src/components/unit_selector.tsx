@@ -18,6 +18,14 @@ const UnitSelector = ({ onUnitSelect }: UnitSelectorProps) => {
     return foundUnit ? foundUnit.name : "";
   };
 
+  const handleFactionChange = async (factionId: string) => {
+    setFaction(factionId);
+    setUnit(""); // Reset unit selection when faction changes
+    if (onUnitSelect) {
+      onUnitSelect(null); // Clear selected unit when faction changes
+    }
+  };
+
   const handleUnitChange = async (unitId: string) => {
     setUnit(unitId);
     if (onUnitSelect && unitId) {
@@ -64,7 +72,7 @@ const UnitSelector = ({ onUnitSelect }: UnitSelectorProps) => {
         label="Faction"
         options={factions}
         selection={faction}
-        onChange={setFaction}
+        onChange={handleFactionChange}
       />
       <DropdownMenu
         label="Unit"

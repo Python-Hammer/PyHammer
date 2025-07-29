@@ -1,3 +1,5 @@
+import io
+
 from models.profile import Profile
 
 from .utils import plot_multi_bars
@@ -18,33 +20,33 @@ class UnitMetric:
     def get_sample(self, unit: Profile):
         pass
 
-    def get_samples(self, unit: Profile, samples: int = None):
+    def get_samples(self, unit: Profile, samples: int = None, combat_context: dict = None):
         """
         Get multiple samples of the metric for a unit.
         """
         samples = samples if samples is not None else self.samples
-        return [self.get_sample(unit) for _ in range(samples)]
+        return [self.get_sample(unit, combat_context=combat_context) for _ in range(samples)]
 
 
-def average_metric(unit: Profile, metric: UnitMetric, n_samples: int = 1000):
+def average_metric(unit: Profile, metric: UnitMetric, n_samples: int = 1000, combat_context: dict = None):
     """
     Compute the average value of a metric for a unit over a number of samples.
     """
     unit.reset()
     metric_value = 0
-    samples = metric.get_samples(unit, n_samples)
+    samples = metric.get_samples(unit, n_samples, combat_context=combat_context)
     for s in samples:
         metric_value += s
     return metric_value / n_samples
 
 
-def plot_cdf(unit: Profile, metric: UnitMetric, n_samples: int = 1000):
+def plot_cdf(unit: Profile, metric: UnitMetric, n_samples: int = 1000, combat_context: dict = None):
     """
     Plot the cumulative distribution function (CDF) of a metric for a unit.
     This function samples the metric for a unit multiple times and plots the CDF.
     """
 
-    metric_dict = compute_metric_for_cdf(unit, metric, n_samples)
+    metric_dict = compute_metric_for_cdf(unit, metric, n_samples, combat_context=combat_context)
     mean_val = metric_dict["avg"]
     metric_values_sorted = metric_dict["metric_values"]
     yvals = metric_dict["yvals"]
@@ -56,14 +58,18 @@ def plot_cdf(unit: Profile, metric: UnitMetric, n_samples: int = 1000):
     plt.ylabel("Cumulative Probability")
     plt.legend()
     plt.grid()
-    plt.show()
+    img_buf = io.BytesIO()
+    plt.savefig(img_buf, format="png")
+    return img_buf
 
 
-def multi_unit_plot_cdf(units: list[Profile], metric: UnitMetric, n_samples: int = 1000):
+def multi_unit_plot_cdf(
+    units: list[Profile], metric: UnitMetric, n_samples: int = 1000, combat_context: dict = None
+):
     plt.figure(figsize=(10, 6))
     list_outputs = []
     for unit in units:
-        list_outputs.append(compute_metric_for_cdf(unit, metric, n_samples))
+        list_outputs.append(compute_metric_for_cdf(unit, metric, n_samples, combat_context=combat_context))
 
     list_outputs.sort(key=lambda x: x["avg"], reverse=True)
     for dic in list_outputs:
@@ -83,7 +89,9 @@ def multi_unit_plot_cdf(units: list[Profile], metric: UnitMetric, n_samples: int
     plt.show()
 
 
-def compute_metric_for_cdf(unit: Profile, metric: UnitMetric, n_samples: int = 1000):
+def compute_metric_for_cdf(
+    unit: Profile, metric: UnitMetric, n_samples: int = 1000, combat_context: dict = None
+):
     """
     Compute the metric values for a unit to be used in CDF plotting.
     First resets the unit, then samples the metric multiple times before sorting the values.
@@ -91,7 +99,7 @@ def compute_metric_for_cdf(unit: Profile, metric: UnitMetric, n_samples: int = 1
     Returns a dictionary with the unit name, average value, metric values, and y-values for the CDF.
     """
     unit.reset()
-    metric_values = metric.get_samples(unit, n_samples)
+    metric_values = metric.get_samples(unit, n_samples, combat_context=combat_context)
     metric_values = np.array(metric_values)
     metric_values = np.sort(metric_values)[::-1]
     yvals = np.arange(len(metric_values)) / float(len(metric_values))

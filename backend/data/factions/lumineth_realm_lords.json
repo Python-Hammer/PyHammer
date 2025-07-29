@@ -49,8 +49,8 @@
           "damage": 3,
           "rend": 1,
           "special_rules": [
-            { "id": "add_rend", "condition": "hero", "value": 1 },
-            { "id": "add_rend", "condition": "monster", "value": 1 }
+            { "id": "add_rend", "condition": "enemy_hero", "value": 1 },
+            { "id": "add_rend", "condition": "enemy_monster", "value": 1 }
           ]
         }
       ]
@@ -73,7 +73,7 @@
           "damage": 1,
           "rend": 1,
           "special_rules": [
-            { "id": "add_rend", "condition": "infantry", "value": 1 },
+            { "id": "add_rend", "condition": "enemy_infantry", "value": 1 },
             { "id": "crit_mortal" }
           ]
         }

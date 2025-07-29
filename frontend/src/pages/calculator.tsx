@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactElement } from "react";
 import "../styles/calculator_page.css";
 
 // components
@@ -11,6 +11,7 @@ const calculator_page = () => {
   const [attackerUnit, setAttackerUnit] = useState(null);
   const [defenderUnit, setDefenderUnit] = useState(null);
   const [damage, setDamage] = useState<number | null>(null);
+  const [plot, setPlot] = useState<ReactElement | null>(null);
 
   const calculateDamage = async () => {
     const response = await fetch("http://localhost:8000/calculate-damage", {
@@ -23,7 +24,8 @@ const calculator_page = () => {
     });
 
     const data = await response.json();
-    setDamage(data);
+    setDamage(data.average_damage);
+    setPlot(data.plot_cdf);
   };
 
   return (
@@ -41,6 +43,18 @@ const calculator_page = () => {
           <button onClick={calculateDamage}>Battle</button>
           {damage !== null && (
             <Card title="Average damage" content={damage.toString()} />
+          )}
+          {plot && (
+            <div className="plot_container">
+              <h2>CDF Plot</h2>
+              <div className="plot_content">
+                <img
+                  src={`data:image/png;base64,${plot}`}
+                  alt="CDF Plot"
+                  className="plot_image"
+                />
+              </div>
+            </div>
           )}
           <div className="results_content">
             <p>Results will be displayed here after battle.</p>
