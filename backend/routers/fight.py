@@ -24,7 +24,7 @@ def calculate_damage(attacker: dict, defender: dict):
     result["average_damage"] = average_metric(
         attacker_profile, metric, n_samples=5000, combat_context=attacker_context
     )
-    img_buffer = plot_cdf(attacker_profile, metric, n_samples=1000, combat_context=attacker_context)
+    img_buffer = plot_cdf(attacker_profile, metric, n_samples=5000, combat_context=attacker_context)
     img_buffer.seek(0)
     result["plot_cdf"] = base64.b64encode(img_buffer.getvalue()).decode("utf-8")
     plt.close()

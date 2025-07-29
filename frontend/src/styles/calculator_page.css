@@ -6,7 +6,7 @@
 
 .calculator_battle_content {
   display: grid;
-  grid-template-columns: 700px 300px 700px; /* Fixed sizes */
+  grid-template-columns: 700px 700px 700px; /* Fixed sizes */
   gap: 2rem;
   justify-content: center; /* Center the entire grid */
   align-items: start;
