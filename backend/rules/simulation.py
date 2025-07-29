@@ -17,10 +17,10 @@ def simulate_combat(
     """
 
     attacker_damage = attacker.attack_with_all_weapons(attacker_context_dict, defender.save)
-    defender_models_slain = defender.receive_damage(attacker_damage)
+    defender_models_slain, attacker_damage = defender.receive_damage(attacker_damage)
 
     defender_damage = defender.attack_with_all_weapons(defender_context_dict, attacker.save)
-    attacker_models_slain = attacker.receive_damage(defender_damage)
+    attacker_models_slain, defender_damage = attacker.receive_damage(defender_damage)
 
     return {
         "attacker": {

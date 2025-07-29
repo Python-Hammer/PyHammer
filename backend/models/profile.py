@@ -55,8 +55,8 @@ class Profile:
                 all_results.append(impact_mortals(self.current_models, ability, combat_context))
         return sum(all_results)
 
-    def receive_damage(self, damage: int) -> int:
-        """Reduce the unit's health by the damage taken."""
+    def receive_damage(self, damage: int) -> tuple[int, int]:
+        """Reduce the unit's health by the damage taken and return the number of models slain and the damage taken."""
         damage = self._process_ward_rolls(damage) if self.ward else damage
         previous_models = self.current_models
         self.wounds_taken += damage
@@ -64,4 +64,4 @@ class Profile:
         self.current_models = max(0, self.total_models - models_slain)
         if self.current_models <= 0:
             self.is_destroyed = True
-        return previous_models - self.current_models
+        return previous_models - self.current_models, damage

@@ -194,10 +194,11 @@ class AlphaStrike(UnitMetric):
         ennemy_unit = self.ennemy_unit
         ennemy_unit.reset()
         dmg = unit.attack_with_all_weapons(combat_context=combat_context, enemy_save=ennemy_unit.save)
+        models_slain, damage_inflicted = ennemy_unit.receive_damage(dmg)
         if self.return_n_slain_models:
-            metric = ennemy_unit.receive_damage(dmg)
+            metric = models_slain
         else:
-            metric = dmg / unit.cost if self.scale_by_cost else dmg
+            metric = damage_inflicted / unit.cost if self.scale_by_cost else damage_inflicted
         return metric
 
 
