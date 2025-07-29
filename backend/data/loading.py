@@ -2,6 +2,14 @@ import json
 from pathlib import Path
 from models.profile import Profile
 
+from . import FACTION_NAME_MAPPING
+
+
+# In loading.py
+def get_faction_names() -> list:
+    """Return list of faction objects with id and display name"""
+    return [{"id": key, "name": value} for key, value in FACTION_NAME_MAPPING.items()]
+
 
 def load_faction(faction_name: str) -> dict:
     """Load a faction's units from its JSON file"""
